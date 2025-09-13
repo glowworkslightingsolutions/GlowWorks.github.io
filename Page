@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowWorks Lighting Solutions - Professional Holiday & Event Lighting</title>
+    <meta name="description" content="Professional holiday and event lighting services in Orange County, Los Angeles, and Inland Empire. Year-round lighting solutions for homes and businesses.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-nav ul {
+            flex-direction: column;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav ul li {
+            margin: 0;
+            text-align: center;
+        }
+
+        .mobile-nav ul li a {
+            display: block;
+            padding: 1rem;
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page Styles */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .features {
+            background: #111;
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #ccc;
+        }
+
+        /* About Page */
+        .about-content {
+            background: #111;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text h2 {
+            color: #FFD700;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        /* Gallery Page */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 2rem 0;
+        }
+
+        .gallery-item {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: #FFD700;
+        }
+
+        .gallery-placeholder {
+            height: 250px;
+            background: linear-gradient(45deg, #333, #555);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD700;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .gallery-caption {
+            padding: 1rem;
+            color: white;
+            text-align: center;
+        }
+
+        /* Contact Page */
+        .contact-content {
+            background: #111;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form {
+            background: #222;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .contact-info h3 {
+            color: #FFD700;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #222;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .contact-item h4 {
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ Page */
+        .faq-content {
+            background: #111;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .faq-item {
+            background: #222;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #333;
+        }
+
+        .faq-question h3 {
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: #FFD700;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            color: white;
+        }
+
+        .section-header h1 {
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 4rem 0 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                padding: 2rem 0;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">✨ GlowWorks</div>
+            <ul>
+                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                <li><a href="#" onclick="showPage('faq')">FAQ</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">☰</div>
+            <div class="mobile-nav">
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    <li><a href="#" onclick="showPage('faq')">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1>GlowWorks Lighting Solutions</h1>
+                <p>Transform your space with professional holiday and event lighting. Year-round services for homes and businesses across Southern California.</p>
+                <a href="#" onclick="showPage('contact')" class="cta-button">Get Free Quote</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Why Choose GlowWorks?</h1>
+                    <p>Professional lighting solutions that bring your vision to life</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎄</div>
+                        <h3>Holiday Lighting</h3>
+                        <p>Christmas, Halloween, Valentine's Day, 4th of July, and all seasonal celebrations with custom designs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎉</div>
+                        <h3>Event Lighting</h3>
+                        <p>Weddings, parties, corporate events, and special occasions with professional-grade equipment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏢</div>
+                        <h3>Commercial Services</h3>
+                        <p>Restaurants, retail stores, office buildings, and business properties with architectural lighting.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Full Service</h3>
+                        <p>Design, installation, maintenance, storage, and take-down services. We handle everything.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Professional Grade</h3>
+                        <p>Commercial LED lights, proper electrical connections, weatherproof installations, and safety first.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📞</div>
+                        <h3>Year-Round Support</h3>
+                        <p>Available 365 days a year for installations, repairs, and emergency lighting services.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="section-header">
+            <div class="container">
+                <h1>About GlowWorks</h1>
+                <p>Your trusted partner for professional lighting solutions</p>
+            </div>
+        </div>
+        <section class="about-content">
+            <div class="container">
+                <div class="about-text">
+                    <h2>Illuminating Southern California</h2>
+                    <p>
+                        At GlowWorks Lighting Solutions, we believe that exceptional lighting transforms ordinary spaces into extraordinary experiences. Founded with a passion for bringing joy and wonder to every season, we specialize in creating stunning lighting displays that captivate and inspire.
+                    </p>
+                    <p>
+                        Our team combines technical expertise with creative vision to deliver lighting solutions that exceed expectations. Whether it's a cozy residential holiday display, a grand corporate event, or a romantic wedding celebration, we bring the same level of professionalism and attention to detail to every project.
+                    </p>
+                    <p>
+                        <strong>Our Mission:</strong> To be Southern California's premier lighting company, providing year-round services that create magical moments and lasting memories for our clients. We don't just install lights – we craft experiences that bring communities together and make special occasions truly unforgettable.
+                    </p>
+                    <p>
+                        <strong>Our Promise:</strong> Every installation is handled with the utmost care for your property. We use only commercial-grade equipment, maintain full insurance coverage, and stand behind our work with comprehensive warranties. Your satisfaction and safety are our top priorities.
+                    </p>
+                    <p>
+                        <strong>Service Areas:</strong> We proudly serve Orange County, Los Angeles County, and the Inland Empire, bringing professional lighting solutions to homes and businesses throughout Southern California.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Gallery Page -->
+    <div id="gallery" class="page">
+        <div class="section-header">
+            <div class="container">
+                <h1>Our Work</h1>
+                <p>See how we transform spaces with professional lighting</p>
+            </div>
+        </div>
+        <section class="gallery-content">
+            <div class="container">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎄<br>Christmas Display<br>Coming Soon
+                        </div>
+                        <div class="gallery-caption">
+                            <h3>Residential Christmas</h3>
+                            <p>Full home outline with warm white LEDs</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎃<br>Halloween Display<br>Coming Soon
+                        </div>
+                        <div class="gallery-caption">
+                            <h3>Halloween Spectacular</h3>
+                            <p>Orange and purple color-changing lights</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💒<br>Wedding Lighting<br>Coming Soon
+                        </div>
+                        <div class="gallery-caption">
+                            <h3>Wedding Reception</h3>
+                            <p>Elegant string lights and uplighting</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🏢<br>Commercial Project<br>Coming Soon
+                        </div>
+                        <div class="gallery-caption">
+                            <h3>Restaurant Ambiance</h3>
+                            <p>Permanent architectural lighting</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🌳<br>Tree Wrapping<br>Coming Soon
+                        </div>
+                        <div class="gallery-caption">
+                            <h3>Tree Wrapping</h3>
+                            <p>Professional palm tree illumination</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            ⭐<br>Custom Display<br>Coming Soon
+                        </div>
+                        <div class="gallery-caption">
+                            <h3>Custom Design</h3>
+                            <p>Unique lighting installation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="section-header">
+            <div class="container">
+                <h1>Get Your Free Quote</h1>
+                <p>Ready to transform your space? Let's discuss your lighting project</p>
+            </div>
+        </div>
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h2 style="color: #FFD700; margin-bottom: 1.5rem;">Request Quote</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="property">Property Type *</label>
+                                <select id="property" name="property" required>
+                                    <option value="">Select Property Type</option>
+                                    <option value="residential">Residential Home</option>
+                                    <option value="commercial">Commercial Business</option>
+                                    <option value="event">Event Venue</option>
+                                    <option value="hoa">HOA/Community</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Service Needed *</label>
+                                <select id="service" name="service" required>
+                                    <option value="">Select Service</option>
+                                    <option value="christmas">Christmas Lighting</option>
+                                    <option value="halloween">Halloween Lighting</option>
+                                    <option value="event">Event/Wedding Lighting</option>
+                                    <option value="permanent">Permanent/Architectural</option>
+                                    <option value="other">Other Holiday/Seasonal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Project Details</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Describe your lighting project, timeline, and any specific requirements..."></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Get Free Quote</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-item">
+                            <h4>📞 Phone</h4>
+                            <p>(XXX) XXX-XXXX<br><small>Available 7 days a week</small></p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>📧 Email</h4>
+                            <p>info@glowworkslighting.com<br><small>We respond within 24 hours</small></p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>🗺️ Service Areas</h4>
+                            <p>Orange County<br>Los Angeles County<br>Inland Empire<br><small>Free estimates within service area</small></p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>⏰ Business Hours</h4>
+                            <p>Monday - Friday: 8AM - 6PM<br>Saturday: 9AM - 4PM<br>Sunday: By appointment<br><small>Emergency service available</small></p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>💰 Free Services</h4>
+                            <p>• Free on-site consultation<br>• Free detailed quote<br>• Free design mockup<br>• Free project timeline</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FAQ Page -->
+    <div id="faq" class="page">
+        <div class="section-header">
+            <div class="container">
+                <h1>Frequently Asked Questions</h1>
+                <p>Everything you need to know about our lighting services</p>
+            </div>
+        </div>
+        <section class="faq-content">
+            <div class="container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How much do your lighting services cost?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our pricing varies based on project size, complexity, and services needed. Residential projects typically range from $800-$4,500, while commercial projects are custom quoted. We offer free on-site consultations and detailed quotes with no hidden fees.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do you provide lights or do I need to buy them?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide all commercial-grade LED lights, electrical connections, timers, and installation hardware. Everything is included in your quote - you don't need to purchase anything separately.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How far in advance should I book?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For Christmas lighting, we recommend booking by October for best availability. Halloween projects should be booked by early September. Other events and permanent installations can typically be scheduled 2-4 weeks in advance.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do you take down and store the lights?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer full take-down and storage services. Your lights are carefully removed, inspected, and stored in our climate-controlled facility until next season. This service is included in many of our packages.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Are you licensed and insured?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. GlowWorks is fully licensed, bonded, and insured with comprehensive liability coverage. We can provide certificates of insurance upon request and all installations meet local electrical codes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do you offer payment plans or financing?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We require a 50% deposit to secure your installation date and purchase materials, with the balance due upon completion. For larger commercial projects, we can discuss extended payment terms on a case-by-case basis.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What makes GlowWorks different from competitors?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We're a year-round lighting company, not just seasonal. We use commercial-grade equipment, provide full-service support, maintain comprehensive insurance, and focus on building long-term relationships with our clients. Quality and professionalism are our priorities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation active state
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Find and activate current link
+            const activeLinks = document.querySelectorAll(`nav a[onclick="showPage('${pageId}')"]`);
+            activeLinks.forEach(link => link.classList.add('active'));
+            
+            // Close mobile menu if open
+            document.querySelector('.mobile-nav').style.display = 'none';
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.querySelector('.mobile-nav');
+            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! We\'ll contact you within 24 hours with your free quote.');
+            this.reset();
+        });
+
+        // Smooth scrolling for mobile
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[onclick*="showPage"]')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const nav = document.querySelector('nav');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (!nav.contains(e.target) && mobileNav.style.display === 'block') {
+                mobileNav.style.display = 'none';
+            }
+        });
+
+        // Add loading animation to buttons
+        document.querySelectorAll('.cta-button, .submit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const originalText = this.textContent;
+                if (this.classList.contains('submit-btn')) {
+                    this.textContent = 'Sending...';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                }
+            });
+        });
+
+        // Dynamic year in content
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear();
+            // You can add copyright footer or other year-dependent content here if needed
+        });
+
+        // Intersection Observer for animations (optional enhancement)
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+
+            // Observe feature cards for staggered animations
+            document.querySelectorAll('.feature-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+    </script>
+</body>
+</html>
